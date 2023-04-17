@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;1,100&display=swap');
+/* Global style */
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Headers */
+h1{
+  font-size: 3em;
+}
+
+h2{
+  font-size: 1em;
+}
+
+/* App */
+.App{
+  /* border: 1px solid white; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #403152;
+  height: 100vh;
+}
+
+.App > * {
+  width: 80vw;
+}
+
+/* Search Bar */
+.search-bar{
+  /* border: 1px solid white; */
+  height: 5vh;
+  margin-bottom: 1rem;
+}
+
+/* Main Content */
+.main-content{
+  /* border: 1px solid red; */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: #97A8BB;
+  height: 80vh;
+  border-radius: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-content > *{
+  /* border: 1px solid white; */
+  text-align: center;
+  width: 100%;
+}
+
+.weather-icon{
+  /* border: 1px solid yellow; */
+  height: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Description */
+.description{
+  /* border: 1px solid black; */
+  display: flex;
+  width: 80%;
+}
+
+.description > *{
+  /* border: 1px solid white; */
+  padding: .5rem 0;
+  width: 25%;
+  margin-bottom: 1px;
+}
+
+.description :nth-child(2){
+  border-right: 1px dotted rgb(102, 107, 151,.5);
+}
+
+/* Divider */
+.divider{
+  border:1px solid #666B97;
+  width: 80%;
+  margin: 1rem;
+}
+
+/* Forecast */
+.forecast{
+  /* border: 1px solid white; */
+  width: auto;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.forecast-title{
+  padding: 1rem;
+}
+
+.forecast > * {
+  border-radius: 30px;
+  background-color: rgb(25, 33, 64,.5);
+  width: 80px;
+  height: 80px;
+  margin: .5rem;
+}
+
+/* Media Query for phone */
+@media only screen and (max-width: 767px) {
+  .description{
+    font-size: .6rem;
+  }
+}
