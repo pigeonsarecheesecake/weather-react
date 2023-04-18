@@ -30,14 +30,8 @@ h2{
 }
 
 .App > * {
-  width: 80vw;
-}
-
-/* Search Bar */
-.search-bar{
-  /* border: 1px solid white; */
-  height: 5vh;
-  margin-bottom: 1rem;
+  
+  width: 50vw;
 }
 
 /* Main Content */
@@ -51,6 +45,7 @@ h2{
   border-radius: 40px;
   justify-content: center;
   align-items: center;
+
 }
 
 .main-content > *{
@@ -92,31 +87,20 @@ h2{
   margin: 1rem;
 }
 
-/* Forecast */
-.forecast{
-  /* border: 1px solid white; */
-  width: auto;
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
 .forecast-title{
   padding: 1rem;
 }
 
-.forecast > * {
-  border-radius: 30px;
-  background-color: rgb(25, 33, 64,.5);
-  width: 80px;
-  height: 80px;
-  margin: .5rem;
-}
+
+
 
 /* Media Query for phone */
 @media only screen and (max-width: 767px) {
   .description{
     font-size: .6rem;
+  }
+
+  .App > *{
+    width: 90vw;
   }
 }

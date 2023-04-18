@@ -1,0 +1,17 @@
+/* Forecast */
+.Forecast{
+    /* border: 1px solid white; */
+    width: auto;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+.Forecast > * {
+    border-radius: 30px;
+    background-color: rgb(25, 33, 64,.5);
+    width: 80px;
+    height: 80px;
+    margin: .5rem;
+  }
