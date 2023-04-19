@@ -1,10 +1,10 @@
 import './SearchBar.css'
 
-export default function SearchBar(){
+export default function SearchBar({onChange, onClick}){
     return(
         <div className='search-bar'>
-            <input type='text' placeholder='Enter a city'></input>
-            <button type='submit'>
+            <input onChange={onChange} type='text' placeholder='Enter a city'></input>
+            <button onClick={onClick} type='submit'>
             <svg width="30" height="30" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M39.8 41.95L26.65 28.8C25.65 29.6666 24.484 30.3416 23.152 30.825C21.8201 31.3083 20.4027 31.55 18.9 31.55C15.2946 31.55 12.2433 30.3 9.74595 27.8C7.24865 25.3 6 22.2833 6 18.75C6 15.2166 7.25 12.2 9.75 9.69995C12.25 7.19995 15.275 5.94995 18.825 5.94995C22.375 5.94995 25.3917 7.19995 27.875 9.69995C30.3583 12.2 31.6 15.2191 31.6 18.7575C31.6 20.1858 31.3667 21.5666 30.9 22.9C30.4333 24.2333 29.7333 25.4833 28.8 26.65L42 39.75L39.8 41.95ZM18.85 28.55C21.5583 28.55 23.8604 27.5916 25.7563 25.675C27.6521 23.7583 28.6 21.45 28.6 18.75C28.6 16.05 27.6521 13.7416 25.7563 11.825C23.8604 9.90828 21.5583 8.94995 18.85 8.94995C16.1139 8.94995 13.7882 9.90828 11.8729 11.825C9.95763 13.7416 9 16.05 9 18.75C9 21.45 9.95763 23.7583 11.8729 25.675C13.7882 27.5916 16.1139 28.55 18.85 28.55Z" fill="black"/>
 </svg>

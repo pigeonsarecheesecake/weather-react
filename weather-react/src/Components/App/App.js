@@ -3,18 +3,44 @@ import React, {useState, useEffect} from 'react';
 import SearchBar from '../SearchBar/SearchBar.js';
 import Forecast from '../Forecast/Forecast';
 
-
 function App() {
   // Initial states
   // City
-  const [city, setCity] = useState('London');
+  const apiKey = process.env.REACT_APP_API_KEY;
+  const [city, setCity] = useState('');
+  const [userInput, setUserInput] = useState('');
+  const [coordinate, setCoordinate] = useState({});
+
   // Date
- 
+
+  // Fetch the coordinate of city whencity is not falsy
+  useEffect(()=>{
+    if(city){
+      fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`)
+      .then(response => response.json()).then(data => setCoordinate({longitude: data[0].lon, latitude: data[0].lat}));
+    }
+  },[city]);
+
+  // Fetch the current weather data using coordinate
+  useEffect( ()=>{
+  }
+  );
+
+  // handleChange set user input based on the value inside the input box
+  const handleChange = e =>{
+    setUserInput(e.target.value);
+    console.log(coordinate)
+  }
   
+  // handleClick to only change city state when user clicks
+  const handleClick = () =>{
+    setCity(userInput);
+  }
+
   return (
     <div className="App">
       {/* Search Bar */}
-      <SearchBar />
+      <SearchBar onChange={handleChange} onClick={handleClick}/>
       {/* Main Content */}
       <div className="main-content">
         {/* City information (name, date, weather icon*/}
@@ -29,7 +55,7 @@ function App() {
           <p>Wind</p>
           <p>8 mph</p>
           <p>Sunny</p>
-          <p>57°</p>
+          <p>52</p>
         </div>
         <div className="description">
           <p>Feels like</p>
