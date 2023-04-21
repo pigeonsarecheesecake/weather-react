@@ -1,0 +1,7 @@
+.weather-icon{
+  /* border: 1px solid yellow; */
+  height: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
