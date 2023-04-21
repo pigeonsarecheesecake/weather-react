@@ -75,7 +75,7 @@ function App() {
         <h1>{currentWeather.name}</h1>
         <h2>{currentDate}</h2>
         {/* Weather Icon */}
-        <WeatherIcon />
+        <WeatherIcon weatherCondition={currentWeather.weather}/>
         {/* Descriptions */}
         <div className="description">
           <p>Wind</p>
@@ -91,7 +91,7 @@ function App() {
         </div>
         {/* Divider */}
         <div className="divider"></div>
-        <h2 className="forecast-title">6 Day Forecast</h2>
+        <h2 className="forecast-title">5 Day Forecast</h2>
         <div className="forecast">
           <Forecast />
         </div>

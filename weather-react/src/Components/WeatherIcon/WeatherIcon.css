@@ -5,3 +5,9 @@
   align-items: center;
   justify-content: center;
 }
+
+.weatherSvg{
+  height: 150px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
