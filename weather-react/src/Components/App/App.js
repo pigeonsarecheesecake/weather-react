@@ -22,40 +22,50 @@ function App() {
   // Current Weather
   const [currentWeather, setCurrentWeather] = useState({})
 
-  // Fetch the coordinate of city when city is not falsy
-  useEffect(()=>{
+  // Coordinate
+  const [coordinate, setCoordinate] = useState({});
+
+  // Fetch the coordinate data from the api and set the state of the coordinate
+  useEffect(()=> {
     if(city){
-      // Url for geocoding
       const coordinateUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
-      
-      // Fetches longitude and latitude data from the geocoding API
       fetch(coordinateUrl)
       .then(response => response.json())
-      // Using the coordinate fetched from the geocoding API, the coordinate will then be used to fetch data from the current weather API
       .then(coordinateData => {
-        const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${coordinateData[0].lat}&lon=${coordinateData[0].lon}&units=imperial&appid=${apiKey}`;
-        // Returns another promise, if we don't return the next then block will not receive the response of the previous fetch call
-        return fetch(currentWeatherUrl)
-      })
+        setCoordinate({
+          lat: coordinateData[0].lat,
+          lon: coordinateData[0].lon
+        })
+      }).catch(e => alert(e))
+    }
+  },[city])
+
+  // Fetch the current weather data and only run the effect when coordinate exists and use it as a dependency array
+  useEffect(()=> {
+    if (coordinate.lat && coordinate.lon){
+      const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${coordinate.lat}&lon=${coordinate.lon}&units=imperial&appid=${apiKey}`;
+      fetch(currentWeatherUrl)
       .then(response => response.json())
-      // Once current weather data is fetched, it will populate current weather state with properties I'd like to display 
       .then(currentWeatherData => {
         setCurrentWeather(
-          { name: currentWeatherData.name,
+          {
+            name: currentWeatherData.name,
             wind: currentWeatherData.wind.speed,
             feels_like : currentWeatherData.main.feels_like,
             temp: currentWeatherData.main.temp,
             humidity: currentWeatherData.main.humidity,
-            weather: currentWeatherData.weather[0].main}
-        )})
-        .catch(e => alert(e))
+            weather: currentWeatherData.weather[0].main,
+            weatherId: currentWeatherData.weather[0].id
+          }
+        )
+      })
     }
-  },[city]);
-
+    
+  },[coordinate])
   // handleChange set user input based on the value inside the input box
   const handleChange = e =>{
     setUserInput(e.target.value);
-    console.log(currentDate)
+    console.log(currentWeather)
   }
   
   // handleClick to only change city state when user clicks
@@ -75,7 +85,7 @@ function App() {
         <h1>{currentWeather.name}</h1>
         <h2>{currentDate}</h2>
         {/* Weather Icon */}
-        <WeatherIcon weatherCondition={currentWeather.weather}/>
+        <WeatherIcon weatherId={currentWeather.weatherId} />
         {/* Descriptions */}
         <div className="description">
           <p>Wind</p>
