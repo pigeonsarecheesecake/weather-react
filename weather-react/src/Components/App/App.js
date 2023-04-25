@@ -1,8 +1,7 @@
 import './App.css';
 import React, {useState, useEffect} from 'react';
 import SearchBar from '../SearchBar/SearchBar.js';
-import Forecast from '../Forecast/Forecast';
-import WeatherIcon from '../WeatherIcon/WeatherIcon';
+import MainContent from '../MainContent/MainContent';
 
 function App() {
   // Current Date 
@@ -25,6 +24,9 @@ function App() {
   // Coordinate
   const [coordinate, setCoordinate] = useState({});
 
+  // Forecast state
+  const [forecast, setForecast] = useState();
+
   // Fetch the coordinate data from the api and set the state of the coordinate
   useEffect(()=> {
     if(city){
@@ -44,6 +46,8 @@ function App() {
   useEffect(()=> {
     if (coordinate.lat && coordinate.lon){
       const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${coordinate.lat}&lon=${coordinate.lon}&units=imperial&appid=${apiKey}`;
+      const foreCastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${coordinate.lat}&lon=${coordinate.lon}&units=imperial&appid=${apiKey}`;
+      // Current weather
       fetch(currentWeatherUrl)
       .then(response => response.json())
       .then(currentWeatherData => {
@@ -59,13 +63,30 @@ function App() {
           }
         )
       })
+
+      // forecast
+      fetch(foreCastUrl)
+      .then(response => response.json())
+      .then(currentForecastData => {
+          // Forecast array
+        let forecastArray = [];
+        for ( let i = 7; i < currentForecastData.list.length ; i+=8){
+          const timeStamp = currentForecastData.list[i].dt_txt;
+          const forecastTemperature = currentForecastData.list[i].main.temp
+          forecastArray.push({timeStamp: timeStamp, forecastTemperature: forecastTemperature});
+        }
+        setForecast(forecastArray)
+      }).catch(e => alert(e))
     }
     
   },[coordinate])
+
+  // Fetch the forecast data and only run the effect when the coordinate
+
+
   // handleChange set user input based on the value inside the input box
   const handleChange = e =>{
     setUserInput(e.target.value);
-    console.log(currentWeather)
   }
   
   // handleClick to only change city state when user clicks
@@ -74,38 +95,23 @@ function App() {
     const userInputNoSpace = userInput.replace(/ /g,"%20");
     setCity(userInputNoSpace);
   }
+  
+  // Only displays main content when city is not falsy
+  const isDisplayed = ()=> {
+    if (city){
+      return true;
+    } else{
+      return false;
+    }
+  }
 
+  // Renders
   return (
     <div className="App">
       {/* Search Bar */}
       <SearchBar onChange={handleChange} onClick={handleClick}/>
       {/* Main Content */}
-      <div className="main-content">
-        {/* City information (name, date, weather icon*/}
-        <h1>{currentWeather.name}</h1>
-        <h2>{currentDate}</h2>
-        {/* Weather Icon */}
-        <WeatherIcon weatherId={currentWeather.weatherId} />
-        {/* Descriptions */}
-        <div className="description">
-          <p>Wind</p>
-          <p>{currentWeather.wind} mph</p>
-          <p>{currentWeather.weather}</p>
-          <p>{currentWeather.temp}°</p>
-        </div>
-        <div className="description">
-          <p>Feels like</p>
-          <p>{currentWeather.feels_like}°</p>
-          <p>Humidity</p>
-          <p>{currentWeather.humidity}%</p>
-        </div>
-        {/* Divider */}
-        <div className="divider"></div>
-        <h2 className="forecast-title">5 Day Forecast</h2>
-        <div className="forecast">
-          <Forecast />
-        </div>
-      </div>
+      <MainContent isDisplayed={isDisplayed()} currentWeather={currentWeather} currentDate={currentDate} forecast={forecast} />
     </div>
   );
 }
