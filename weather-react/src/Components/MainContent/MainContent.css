@@ -9,42 +9,56 @@
     border-radius: 40px;
     justify-content: center;
     align-items: center;
-  
   }
-  
-  .main-content > *{
+
+.main-content > *{
     /* border: 1px solid white; */
     text-align: center;
     width: 100%;
+}
+
+.header-one{
+    /* border: 1px solid black; */
+    width: 80%;
+    margin: .5rem;
   }
-  
-  
-  
-  /* Description */
-  .description{
+
+/* Description */
+.description{
     /* border: 1px solid black; */
     display: flex;
     width: 80%;
-  }
-  
-  .description > *{
+}
+
+.description > *{
     /* border: 1px solid white; */
     padding: .5rem 0;
     width: 25%;
     margin-bottom: 1px;
-  }
-  
-  .description :nth-child(2){
+}
+
+.description :nth-child(2){
     border-right: 1px dotted rgb(102, 107, 151,.5);
-  }
-  
-  /* Divider */
-  .divider{
+}
+
+/* Divider */
+.divider{
     border:1px solid #666B97;
     width: 80%;
     margin: 1rem;
-  }
-  
-  .forecast-title{
+}
+
+/* Forecast */
+.forecast-title{
     padding: 1rem;
+}
+
+.forecast-list{
+    /* border: 1px solid white; */
+    width: auto;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
+
