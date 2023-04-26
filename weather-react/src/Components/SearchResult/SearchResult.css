@@ -1,0 +1,20 @@
+.result-li{
+    /* border: 1px solid purple; */
+    list-style-type: none;
+    display: flex;
+    width:70%;
+    justify-content: center;
+    margin: .5rem 0;
+    overflow: hidden;
+}
+
+.result-li > button{
+    border:none;
+    border: 2px solid #666B97;
+    border-radius: 10px;
+    background-color: rgb(56, 67, 87);
+    cursor: pointer;
+    width: 100%;
+    padding: 1rem;
+}
+

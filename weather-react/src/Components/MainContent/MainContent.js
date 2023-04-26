@@ -3,14 +3,14 @@ import WeatherIcon from '../WeatherIcon/WeatherIcon'
 import './MainContent.css'
 import ForecastList from "../ForecastList/ForecastList"
 
-export default function MainContent({coordinate, currentWeather, currentDate, forecastData}){
+export default function MainContent({coordinate, currentWeather, currentDate, forecastData, cityState}){
     //Only renders when coordinate exists 
     if (coordinate){
       return(
           <div className="main-content">
             {/* City information (name, date, weather icon*/}
             <div className="header-one">
-              <h1>{currentWeather.name}, {currentWeather.country}</h1>
+              <h1>{cityState.name} <br></br>{cityState.state}</h1>
             </div>
             <h2>{currentDate}</h2>
             {/* Weather Icon */}

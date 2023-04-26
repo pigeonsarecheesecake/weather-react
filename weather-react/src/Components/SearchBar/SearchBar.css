@@ -21,7 +21,7 @@
     color: rgb(165, 165, 165);
   }
 
-  button{
+  .search-bar > button{
     background-color: transparent;
     border: none;
     height: 35px;

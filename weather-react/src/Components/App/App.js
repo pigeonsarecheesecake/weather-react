@@ -2,6 +2,7 @@ import './App.css'
 import React, {useState, useEffect} from 'react'
 import SearchBar from '../SearchBar/SearchBar.js'
 import MainContent from '../MainContent/MainContent'
+import SearchResultsList from '../SearchResultsList/SearchResultsList'
 
 function App() {
   // Current Date 
@@ -13,21 +14,20 @@ function App() {
   // Initial states
   const [city, setCity] = useState('');
   const [userInput, setUserInput] = useState('');
-  const [currentWeather, setCurrentWeather] = useState({})
   const [coordinate, setCoordinate] = useState();
+  const [currentWeather, setCurrentWeather] = useState({})
+  const [cityState, setCityState] = useState({});
   const [forecastData, setForecastData] = useState();
+  const [searchResults, setSearchResults] =useState([]);
 
   // Fetch the coordinate data from the api and set the state of the coordinate
   useEffect(()=> {
     if(city){
-      const coordinateUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
+      const coordinateUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`;
       fetch(coordinateUrl)
       .then(response => response.json())
       .then(coordinateData => {
-        setCoordinate({
-          lat: coordinateData[0].lat,
-          lon: coordinateData[0].lon
-        })
+        setSearchResults(coordinateData);
       } ).catch(e => alert("City not found"))
     }
   },[city,apiKey])
@@ -77,6 +77,23 @@ function App() {
     }
   },[coordinate,apiKey]);
 
+    
+  // Event handlers
+  const handleClick = clickedCity => {
+    setCoordinate(
+      {
+        lat: clickedCity.lat,
+        lon: clickedCity.lon
+      }
+    )
+    setCityState(
+      {
+        name: clickedCity.name,
+        state: clickedCity.state
+      }
+    )
+    setSearchResults([]);
+  }
 
   // handleChange set user input based on the value inside the input box
   const handleChange = e =>{
@@ -84,19 +101,22 @@ function App() {
   }
   
   // handleClick to only change city state when user clicks
-  const handleClick = () =>{
-    // Using regex to replace space with %20 so space will be translated in the url
-    const userInputNoSpace = userInput.replace(/ /g,"%20");
-    setCity(userInputNoSpace);
+  const handleSearch= () =>{
+  // Using regex to replace space with %20 so space will be translated in the url
+  const userInputNoSpace = userInput.replace(/ /g,"%20");
+  setCity(userInputNoSpace);
+  setCoordinate();
   }
 
   // Renders
   return (
     <div className="App">
       {/* Search Bar */}
-      <SearchBar onChange={handleChange} onClick={handleClick}/>
+      <SearchBar onChange={handleChange} onSearch={handleSearch}/>
+      {/* Search Results */}
+      <SearchResultsList searchResults={searchResults} onClick={handleClick}/>
       {/* Main Content */}
-      <MainContent coordinate={coordinate} currentWeather={currentWeather} currentDate={currentDate} forecastData={forecastData} />
+      <MainContent cityState={cityState} coordinate={coordinate} currentWeather={currentWeather} currentDate={currentDate} forecastData={forecastData} />
     </div>
   );
 }
