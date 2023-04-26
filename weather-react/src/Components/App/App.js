@@ -20,7 +20,7 @@ function App() {
   // Fetch the coordinate data from the api and set the state of the coordinate
   useEffect(()=> {
     if(city){
-      const coordinateUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
+      const coordinateUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
       fetch(coordinateUrl)
       .then(response => response.json())
       .then(coordinateData => {
